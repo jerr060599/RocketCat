@@ -34,9 +34,10 @@ public class PlayerController : MonoBehaviour {
     public bool useMouseControls = false;//Whether to read from mouse controls or not
 
     [Header("References")]
+    public GameObject explosionPrefab;//Prefab of the explosion
     public Animator thrusters;      //A reference to the animation controller for the flames
     public Slider healthbar;        //A reference to the health slider
-    public Text healtText;          //A reference to the health slider
+    public Text heathText;          //A reference to the health slider
     public Image bloodScreen;       //A reference to the blood image
     public FocusLayer focusLayer;   //The focus layer the player controls are on
     public GameObject replayScreen; //A reference to the replay screen
@@ -141,7 +142,7 @@ public class PlayerController : MonoBehaviour {
         health -= dmg;                                      //Apply damage
 
         healthbar.value = health / maxHealth;               //Update health bar
-        healtText.text = health.ToString(".#") + "/100 HP"; //Format and update health text
+        heathText.text = health.ToString(".#") + "/100 HP"; //Format and update health text
 
         curBlood = bloodIntesity;                           //Blood effect
 
@@ -152,7 +153,7 @@ public class PlayerController : MonoBehaviour {
     //Called when the player dies
     void OnDeath() {
         //Instantiate an explosion effect
-        Instantiate(PrefabIndex.main.explosion, transform.position, Quaternion.identity);
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         //Freeze this physics
         body.constraints = RigidbodyConstraints2D.FreezeAll;
         //Disable all sprites
